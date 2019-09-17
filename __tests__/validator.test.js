@@ -155,4 +155,10 @@ describe('validator module', () => {
       expect(validator.getValidator(rules)).toBe(validator.isArrayOfBooleans);
     });
   });
+
+  describe('re casts for', () => {
+    it('strings', () => {
+
+    });
+  });
 });
