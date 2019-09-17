@@ -10,7 +10,5 @@
 
 #### Running the app
 * 'npm start'
-* Endpoint: '/'
-    * Returns a boolean
 * Endpoint: '/docs'
     * Returns  JSDoc Documentation Pages
