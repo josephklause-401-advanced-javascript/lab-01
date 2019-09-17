@@ -106,52 +106,52 @@ describe('validator module', () => {
   describe('get validator for', () => {
 
     it('strings', () => {
-      const rules = 'string'
+      const rules = 'string';
       expect(validator.getValidator(rules)).toBe(validator.isString);
     });
     
     it('numbers', () => {
-      const rules = 'number'
+      const rules = 'number';
       expect(validator.getValidator(rules)).toBe(validator.isNumber);
     });
 
     it('arrays', () => {
-      const rules = 'array'
+      const rules = 'array';
       expect(validator.getValidator(rules)).toBe(validator.isAnArray);
     });
 
     it('objects', () => {
-      const rules = 'object'
+      const rules = 'object';
       expect(validator.getValidator(rules)).toBe(validator.isObject);
     });
 
     it('booleans', () => {
-      const rules = 'boolean'
+      const rules = 'boolean';
       expect(validator.getValidator(rules)).toBe(validator.isBoolean);
     });
 
     it('functions', () => {
-      const rules = 'function'
+      const rules = 'function';
       expect(validator.getValidator(rules)).toBe(validator.isFunction);
     });
 
     it('array of strings', () => {
-      const rules = 'array of strings'
+      const rules = 'array of strings';
       expect(validator.getValidator(rules)).toBe(validator.isArrayOfStrings);
     });
 
     it('array of numbers', () => {
-      const rules = 'array of numbers'
+      const rules = 'array of numbers';
       expect(validator.getValidator(rules)).toBe(validator.isArrayOfNumbers);
     });
 
     it('array of objects', () => {
-      const rules = 'array of objects'
+      const rules = 'array of objects';
       expect(validator.getValidator(rules)).toBe(validator.isArrayOfObjects);
     });
 
     it('array of booleans', () => {
-      const rules = 'array of booleans'
+      const rules = 'array of booleans';
       expect(validator.getValidator(rules)).toBe(validator.isArrayOfBooleans);
     });
   });
