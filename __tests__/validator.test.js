@@ -1,4 +1,7 @@
 const validator = require('../lib/validator.js');
+const {
+  CastError,
+} = require('../lib/Errors');
 
 describe('validator module', () => {
   
@@ -158,7 +161,19 @@ describe('validator module', () => {
 
   describe('re casts for', () => {
     it('strings', () => {
-
+      expect(validator.stringCaster(str)).toBe(str);
+      expect(validator.stringCaster(num)).toBe(String(num));
+      expect(validator.stringCaster(bool)).toBe(String(bool));
+      expect(() => {
+        validator.stringCaster(arr);
+      }).toThrow(CastError);
+      expect(() => {
+        validator.stringCaster(obj);
+      }).toThrow(CastError);
+      expect(() => {
+        validator.stringCaster(func);
+      }).toThrow(CastError);
     });
   });
+
 });
