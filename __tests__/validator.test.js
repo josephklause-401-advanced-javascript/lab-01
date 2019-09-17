@@ -6,11 +6,14 @@ const {
 describe('validator module', () => {
   
   const str = 'yes';
-  const num = 1;
+  const numStr = '12';
+  const emptyStr = '';
+  const num = 2;
   const arr = ['a'];
   const obj = { x: 'y' };
   const func = () => {};
   const bool = false;
+  const date = new Date;
 
   describe('performs basic validation of', () => {
 
@@ -160,10 +163,12 @@ describe('validator module', () => {
   });
 
   describe('re casts for', () => {
+
     it('strings', () => {
       expect(validator.stringCaster(str)).toBe(str);
       expect(validator.stringCaster(num)).toBe(String(num));
       expect(validator.stringCaster(bool)).toBe(String(bool));
+      expect(validator.stringCaster(date)).toBe(String(date));
       expect(() => {
         validator.stringCaster(arr);
       }).toThrow(CastError);
@@ -174,6 +179,79 @@ describe('validator module', () => {
         validator.stringCaster(func);
       }).toThrow(CastError);
     });
-  });
 
+    it('number', () => {
+      expect(validator.numberCaster(num)).toBe(num);
+      expect(validator.numberCaster(numStr)).toBe(Number(numStr));
+      expect(() => {
+        validator.numberCaster(arr);
+      }).toThrow(CastError);
+      expect(() => {
+        validator.numberCaster(obj);
+      }).toThrow(CastError);
+      expect(() => {
+        validator.numberCaster(func);
+      }).toThrow(CastError);
+      expect(() => {
+        validator.numberCaster(str);
+      }).toThrow(CastError);
+      expect(() => {
+        validator.numberCaster(emptyStr);
+      }).toThrow(CastError);
+    });
+
+    const trueString = 'true';
+    const trueNumString = '1';
+    const trueNum = 1;
+    const falseString = 'false';
+    const falseNumString = '0';
+    const falseNum = 0;
+
+    it('boolean', () => {
+      expect(validator.booleanCaster(bool)).toBe(bool);
+      expect(validator.booleanCaster(trueString)).toBe(true);
+      expect(validator.booleanCaster(trueNumString)).toBe(true);
+      expect(validator.booleanCaster(trueNum)).toBe(true);
+      expect(validator.booleanCaster(falseString)).toBe(false);
+      expect(validator.booleanCaster(falseNumString)).toBe(false);
+      expect(validator.booleanCaster(falseNum)).toBe(false);
+      expect(() => {
+        validator.booleanCaster(arr);
+      }).toThrow(CastError);
+      expect(() => {
+        validator.booleanCaster(obj);
+      }).toThrow(CastError);
+      expect(() => {
+        validator.booleanCaster(func);
+      }).toThrow(CastError);
+      expect(() => {
+        validator.booleanCaster(str);
+      }).toThrow(CastError);
+      expect(() => {
+        validator.booleanCaster(num);
+      }).toThrow(CastError);
+    });
+
+    it('boolean', () => {
+      expect(validator.dateCaster(date)).toBe(date);
+      expect(() => {
+        validator.dateCaster(arr);
+      }).toThrow(CastError);
+      expect(() => {
+        validator.dateCaster(obj);
+      }).toThrow(CastError);
+      expect(() => {
+        validator.dateCaster(func);
+      }).toThrow(CastError);
+      expect(() => {
+        validator.dateCaster(str);
+      }).toThrow(CastError);
+      expect(() => {
+        validator.dateCaster(num);
+      }).toThrow(CastError);
+      expect(() => {
+        validator.dateCaster(bool);
+      }).toThrow(CastError);
+    });
+  });
 });
