@@ -5,11 +5,13 @@
 ### Author: Joe Klause
 
 ### Links and Resources
-* [submission PR](http://xyz.com)
-* [travis](http://xyz.com)
+* [submission PR](https://github.com/josephklause-401-advanced-javascript/lab-01/pull/2)
+* [travis](https://travis-ci.com/josephklause-401-advanced-javascript/lab-01)
+
 
 #### Documentation
-* [jsdoc](http://xyz.com) (Server assignments)
+* [jsdoc](https://josephklause-401-advanced-javascript.github.io/lab-01/docs)
+
 
 #### Running the app
 

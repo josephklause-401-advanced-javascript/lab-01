@@ -172,7 +172,7 @@ describe('validator module', () => {
     });
   });
 
-  describe('re casts for', () => {
+  describe('recast for', () => {
 
     it('strings', () => {
       expect(validator.stringCaster(str)).toBe(str);
@@ -242,7 +242,7 @@ describe('validator module', () => {
       }).toThrow(CastError);
     });
 
-    it('boolean', () => {
+    it('date', () => {
       expect(validator.dateCaster(date)).toBe(date);
       expect(() => {
         validator.dateCaster(arr);
