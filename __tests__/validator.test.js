@@ -35,6 +35,11 @@ describe('validator module', () => {
       expect(validator.isNumber(bool)).toBeFalsy();
     });
 
+    it('date', () => {
+      expect(validator.isDate(date)).toBeTruthy();
+      expect(validator.isDate(str)).toBeFalsy();
+    });
+
     it('arrays', () => {
       expect(validator.isAnArray(str)).toBeFalsy();
       expect(validator.isAnArray(num)).toBeFalsy();
@@ -119,6 +124,11 @@ describe('validator module', () => {
     it('numbers', () => {
       const rules = 'number';
       expect(validator.getValidator(rules)).toBe(validator.isNumber);
+    });
+
+    it('date', () => {
+      const rules = 'date';
+      expect(validator.getValidator(rules)).toBe(validator.isDate);
     });
 
     it('arrays', () => {
@@ -252,6 +262,29 @@ describe('validator module', () => {
       expect(() => {
         validator.dateCaster(bool);
       }).toThrow(CastError);
+    });
+  });
+
+  describe('get caster for', () => {
+
+    it('strings', () => {
+      const type = 'string';
+      expect(validator.getCaster(type)).toBe(validator.stringCaster);
+    });
+    
+    it('numbers', () => {
+      const type = 'number';
+      expect(validator.getCaster(type)).toBe(validator.numberCaster);
+    });
+
+    it('arrays', () => {
+      const type = 'boolean';
+      expect(validator.getCaster(type)).toBe(validator.booleanCaster);
+    });
+
+    it('objects', () => {
+      const type = 'date';
+      expect(validator.getCaster(type)).toBe(validator.dateCaster);
     });
   });
 });
