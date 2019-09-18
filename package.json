@@ -4,16 +4,29 @@
   "description": "this will be sooooo cool",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint **/*.js",
     "test": "jest --verbose --coverage",
-    "lint": "eslint '**/*.js'", 
-    "test:watch": "npm run test -- --watch"
+    "test-watch": "jest --watchAll --verbose --coverage",
+    "jsdoc": "jsdoc -c ./docs/config/jsdoc.config.json"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "eslint": "^6.1.0"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "eslint": "^6.4.0",
     "jest": "^24.9.0"
-  }
+  },
+  "directories": {
+    "doc": "docs",
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josephklause-401-advanced-javascript/lab-01.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/josephklause-401-advanced-javascript/lab-01/issues"
+  },
+  "homepage": "https://github.com/josephklause-401-advanced-javascript/lab-01#readme"
 }
