@@ -18,7 +18,7 @@ const validModel = {
 
 const invalidModel = {
   'firstName': '',
-  'lastName': 0,
+  'lastName': 'frank',
   'hair': {
     'type': 'wavy',
     'color': 'brown'
@@ -52,13 +52,9 @@ describe('Schema', () => {
   });
 
   it('throws on invalid model', () => {
-    const expected = [
-      { error: ' is not a string' },
-      { error: 'married is required' },
-      { error: 'undefined is not a boolean' }
-    ];
+    const expected = 'Model has the following errors: firstName is required. married is required. undefined is not a boolean. ';
 
     const schema = new Schema(personSchema);
-    expect(schema.validate(invalidModel)).toEqual(expected);
+    expect(schema.validate(invalidModel).message).toEqual(expected);
   });
 });
