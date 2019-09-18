@@ -28,7 +28,6 @@ const invalidModel = {
     'cupcakes',
     'salmon'
   ],
-  'married': true,
   'kids': 3
 };
 
@@ -41,12 +40,25 @@ describe('Schema', () => {
   };
 
   it('validates a correct model', () => {
+    const expected = { 
+      firstName: 'Chris', 
+      lastName: 'Sample', 
+      married: true, 
+      kids: 3 
+    };
+
     const schema = new Schema(personSchema);
-    schema.validate(validModel);
+    expect(schema.validate(validModel)).toEqual(expected);
   });
 
   it('throws on invalid model', () => {
+    const expected = [
+      { error: ' is not a string' },
+      { error: 'married is required' },
+      { error: 'undefined is not a boolean' }
+    ];
+
     const schema = new Schema(personSchema);
-    schema.validate(invalidModel);
+    expect(schema.validate(invalidModel)).toEqual(expected);
   });
 });
