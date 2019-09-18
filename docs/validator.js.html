@@ -26,7 +26,10 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>
+            <pre class="prettyprint source linenums"><code>const {
+  CastError,
+} = require('../lib/Errors');
+
 /**
  * Is this a string?
  * @param input
@@ -43,6 +46,15 @@ const isString = input => {
  */
 const isNumber = input => {
   return typeof input === 'number';
+};
+
+/**
+ * Is this a date
+ * @param input
+ * @returns {boolean}
+ */
+const isDate = input => {
+  return (typeof input === 'object' &amp;&amp; String(input).match(/Time\)$/));
 };
 
 /**
@@ -143,6 +155,7 @@ const isArrayOfObjects = (input) => {
   } return false;
 };
 
+
 /**
  * Based on a set of rules, what is correct validator?
  * TODO: Define the rules ... how do we send them in? How do we identify?
@@ -162,6 +175,9 @@ const getValidator = (rules) => {
   }
   if(rules === 'array'){
     return isAnArray;
+  }
+  if(rules === 'date'){
+    return isDate;
   }
   if(rules === 'boolean'){
     return isBoolean;
@@ -183,9 +199,104 @@ const getValidator = (rules) => {
   }
 };
 
+
+
+/**recast to a string
+ * 
+ * @param input
+ * @returns {string}
+ */
+const stringCaster = (input) => {
+  const type = typeof(input);
+  if(type === 'string') {
+    return input;
+  } else if(type === 'number' || type === 'boolean') {
+    const coercedInput = String(input);
+    return coercedInput;
+  } else if(type === 'object' &amp;&amp; String(input).match(/Time\)$/)) {
+    const coercedInput = String(input);
+    return coercedInput;
+  }
+  throw new CastError('string', input);
+};
+
+/**recast to a number
+ * 
+ * @param input
+ * @returns {number}
+ */
+const numberCaster = (input) => {
+  const type = typeof(input);
+  if(type === 'number') {
+    return input;
+  } else if(input === '') {
+    throw new CastError('number', input);
+  } else if(type === 'string' || type === 'date') {
+    const coercedInput = Number(input);
+    if(!isNaN(coercedInput)) {
+      return coercedInput;
+    } else {
+      throw new CastError('number', input);
+    }
+  }
+  throw new CastError('number', input);
+};
+
+/**recast to a boolean
+ * 
+ * @param input
+ * @returns {boolean}
+ */
+const booleanCaster = (input) => {
+  const type = typeof(input);
+  if(type === 'boolean') {
+    return input;
+  } else if(input === 'true' || input === 1 || input === '1') {
+    return true;
+  } else if(input === 'false' || input === 0 || input === '0') {
+    return false;
+  } 
+  throw new CastError('boolean', input);
+};
+
+/**recast to a date
+ * 
+ * @param input
+ * @returns {date}
+ */
+const dateCaster = (input) => {
+  const type = typeof(input);
+  if(type === 'object' &amp;&amp; String(input).match(/Time\)$/)) {
+    return input;
+  }
+  throw new CastError('date', input);
+};
+
+/**
+ * Based on what type you provide, return the appropriate caster
+ * @param type
+ * @returns {caster}
+ */
+
+const getCaster = (type) => {
+  if(type === 'string'){
+    return stringCaster;
+  }
+  if(type === 'number'){
+    return numberCaster;
+  }
+  if(type === 'boolean'){
+    return booleanCaster;
+  }
+  if(type === 'date'){
+    return dateCaster;
+  }
+};
+
 module.exports = {
   isString,
   isNumber,
+  isDate,
   isAnArray,
   isObject,
   isBoolean,
@@ -194,11 +305,13 @@ module.exports = {
   isArrayOfNumbers,
   isArrayOfObjects,
   isArrayOfBooleans,
-  getValidator
-};
-
-
-</code></pre>
+  getValidator,
+  stringCaster,
+  numberCaster,
+  booleanCaster,
+  dateCaster,
+  getCaster
+};</code></pre>
         </article>
     </section>
 
@@ -208,13 +321,13 @@ module.exports = {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#getValidator">getValidator</a></li><li><a href="global.html#isAnArray">isAnArray</a></li><li><a href="global.html#isArrayOfBooleans">isArrayOfBooleans</a></li><li><a href="global.html#isArrayOfNumbers">isArrayOfNumbers</a></li><li><a href="global.html#isArrayOfObjects">isArrayOfObjects</a></li><li><a href="global.html#isArrayOfStrings">isArrayOfStrings</a></li><li><a href="global.html#isBoolean">isBoolean</a></li><li><a href="global.html#isFunction">isFunction</a></li><li><a href="global.html#isNumber">isNumber</a></li><li><a href="global.html#isObject">isObject</a></li><li><a href="global.html#isString">isString</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Schema.html">Schema</a></li></ul><h3>Global</h3><ul><li><a href="global.html#booleanCaster">booleanCaster</a></li><li><a href="global.html#dateCaster">dateCaster</a></li><li><a href="global.html#getCaster">getCaster</a></li><li><a href="global.html#getValidator">getValidator</a></li><li><a href="global.html#isAnArray">isAnArray</a></li><li><a href="global.html#isArrayOfBooleans">isArrayOfBooleans</a></li><li><a href="global.html#isArrayOfNumbers">isArrayOfNumbers</a></li><li><a href="global.html#isArrayOfObjects">isArrayOfObjects</a></li><li><a href="global.html#isArrayOfStrings">isArrayOfStrings</a></li><li><a href="global.html#isBoolean">isBoolean</a></li><li><a href="global.html#isDate">isDate</a></li><li><a href="global.html#isFunction">isFunction</a></li><li><a href="global.html#isNumber">isNumber</a></li><li><a href="global.html#isObject">isObject</a></li><li><a href="global.html#isString">isString</a></li><li><a href="global.html#numberCaster">numberCaster</a></li><li><a href="global.html#stringCaster">stringCaster</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Sep 16 2019 17:26:37 GMT-0700 (Pacific Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Sep 18 2019 00:37:09 GMT-0700 (Pacific Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
