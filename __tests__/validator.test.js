@@ -13,8 +13,8 @@ describe('validator module', () => {
   const obj = { x: 'y' };
   const func = () => {};
   const bool = false;
-  const date = new Date;
-
+  const date = 'Wed Sep 18 2019 00:38:53 GMT-0700 (Pacific Daylight Time)';
+  
   describe('performs basic validation of', () => {
 
     it('strings', () => {
