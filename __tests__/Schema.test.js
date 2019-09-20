@@ -1,4 +1,4 @@
-const Schema = require('../lib/schema');
+const Schema = require('../lib/schema.js');
 
 
 const validModel = {
