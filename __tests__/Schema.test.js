@@ -1,4 +1,5 @@
-const Schema = require('../lib/Schema');
+const Schema = require('../lib/schema');
+
 
 const validModel = {
   'firstName': 'Chris',
